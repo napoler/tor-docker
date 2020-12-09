@@ -3,7 +3,11 @@
 This is a simple and lightweight Docker image for running a Tor proxy.
 
 The base image used is `alpine`.
+# bulid
 
+```
+docker build -t napoler/tor_proxy ./
+```
 # Usage
 
 It is pretty simple to run and has some sane defaults.

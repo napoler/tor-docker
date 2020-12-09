@@ -52,7 +52,9 @@ DataDirectory /var/lib/tor
 ControlPort 9051
 ## If you enable the controlport, be sure to enable one of these
 ## authentication methods, to prevent attackers from accessing it.
+## 使用tor --hash-password 79623222   密码生成
 #HashedControlPassword 16:872860B76453A77D60CA2BB8C1A7042072093276A3D701AD684053EC4C
+HashedControlPassword 16:47619345AEB37D1C6073ACEADCC13CC3654A504307FB29453E9D3F83EA
 #CookieAuthentication 1
 
 ############### This section is just for location-hidden services ###
