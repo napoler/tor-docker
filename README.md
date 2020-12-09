@@ -26,14 +26,16 @@ The Tor proxy would be coming up shortly after establishing a Tor circuit.
 
 If you want to customize the Tor configuration, create a `torrc` locally and the mount the same as a volume.
 
+ControlPort 0.0.0.0:9051
+password 79623222
+
 ```
 $ docker run \
-    --rm \
-    --detach \
     --name tor \
-    --volume $PWD/torrc:/etc/tor/torrc
-    --publish 9050:9050 \ # change the port to whatever you put in the torrc
-    palnabarun/tor
+    --volume $PWD/torrc.default:/etc/tor/torrc.default \
+    --publish 9050:9050 \
+    --publish 9051:9051 \
+    napoler/tor_proxy
 ...
 ```
 
