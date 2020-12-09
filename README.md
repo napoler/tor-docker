@@ -35,6 +35,14 @@ $ docker run \
 
 The options in `torrc` are documented [here](https://2019.www.torproject.org/docs/tor-manual.html.en)
 
+
+test
+
+```
+curl https://check.torproject.org/api/ip
+curl --socks5 127.0.0.1:9050 https://check.torproject.org/api/ip
+```
+
 # Contributing
 
 Please feel free to create issues and file PRs with any change that you wish to see.
