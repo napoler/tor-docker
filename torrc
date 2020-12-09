@@ -15,9 +15,8 @@
 ## Tor opens a SOCKS proxy on port 9050 by default -- even if you don't
 ## configure one below. Set "SOCKSPort 0" if you plan to run Tor only
 ## as a relay, and not make any local application connections yourself.
-#SOCKSPort 9050 # Default: Bind to localhost:9050 for local connections.
+SOCKSPort 0.0.0.0:9050 # Default: Bind to localhost:9050 for local connections.
 #SOCKSPort 192.168.0.1:9100 # Bind to this address:port too.
-SocksPort 0.0.0.0:9050
 
 ## Entry policies to allow/deny SOCKS requests based on IP address.
 ## First entry that matches wins. If no SOCKSPolicy is set, we accept
@@ -35,23 +34,18 @@ SocksPort 0.0.0.0:9050
 ## We advise using "notice" in most cases, since anything more verbose
 ## may provide sensitive information to an attacker who obtains the logs.
 ##
-## Send all messages of level 'notice' or higher to /usr/local/var/log/tor/notices.log
-#Log notice file /usr/local/var/log/tor/notices.log
-## Send every possible message to /usr/local/var/log/tor/debug.log
-#Log debug file /usr/local/var/log/tor/debug.log
+## Send all messages of level 'notice' or higher to /var/log/tor/notices.log
+Log notice file /var/log/tor/notices.log
+## Send every possible message to /var/log/tor/debug.log
+#Log debug file /var/log/tor/debug.log
 ## Use the system log instead of Tor's logfiles
 #Log notice syslog
 ## To send all messages to stderr:
 #Log debug stderr
 
-## Uncomment this to start the process in the background... or use
-## --runasdaemon 1 on the command line. This is ignored on Windows;
-## see the FAQ entry if you want Tor to run as an NT service.
-#RunAsDaemon 1
-
 ## The directory for keeping all the keys/etc. By default, we store
 ## things in $HOME/.tor on Unix, and in Application Data\tor on Windows.
-#DataDirectory /usr/local/var/lib/tor
+DataDirectory /var/lib/tor
 
 ## The port on which Tor will listen for local connections from Tor
 ## controller applications, as documented in control-spec.txt.
@@ -70,10 +64,10 @@ ControlPort 9051
 ## HiddenServicePort x y:z says to redirect requests on port x to the
 ## address y:z.
 
-#HiddenServiceDir /usr/local/var/lib/tor/hidden_service/
+#HiddenServiceDir /var/lib/tor/hidden_service/
 #HiddenServicePort 80 127.0.0.1:80
 
-#HiddenServiceDir /usr/local/var/lib/tor/other_hidden_service/
+#HiddenServiceDir /var/lib/tor/other_hidden_service/
 #HiddenServicePort 80 127.0.0.1:80
 #HiddenServicePort 22 127.0.0.1:22
 
@@ -96,21 +90,14 @@ ControlPort 9051
 
 ## If you have multiple network interfaces, you can specify one for
 ## outgoing traffic to use.
-## OutboundBindAddressExit will be used for all exit traffic, while
-## OutboundBindAddressOR will be used for all other connections.
-## If you do not wish to differentiate, use OutboundBindAddress to
-## specify the same address for both in a single line.
-#OutboundBindAddressExit 10.0.0.4
-#OutboundBindAddressOR 10.0.0.5
+# OutboundBindAddress 10.0.0.5
 
 ## A handle for your relay, so people don't have to refer to it by key.
-## Nicknames must be between 1 and 19 characters inclusive, and must
-## contain only the characters [a-zA-Z0-9].
 #Nickname ididnteditheconfig
 
 ## Define these to limit how much relayed traffic you will allow. Your
 ## own traffic is still unthrottled. Note that RelayBandwidthRate must
-## be at least 75 kilobytes per second.
+## be at least 20 kilobytes per second.
 ## Note that units for these config options are bytes (per second), not
 ## bits (per second), and that prefixes are binary prefixes, i.e. 2^10,
 ## 2^20, etc.
@@ -153,7 +140,7 @@ ControlPort 9051
 ## can explain what Tor is if anybody wonders why your IP address is
 ## contacting them. See contrib/tor-exit-notice.html in Tor's source
 ## distribution for a sample.
-#DirPortFrontPage /usr/local/etc/tor/tor-exit-notice.html
+#DirPortFrontPage /etc/tor/tor-exit-notice.html
 
 ## Uncomment this if you run more than one Tor relay, and add the identity
 ## key fingerprint of each Tor relay you control, even if they're on
@@ -209,13 +196,3 @@ ControlPort 9051
 ## a private bridge, for example because you'll give out your bridge
 ## address manually to your friends, uncomment this line:
 #PublishServerDescriptor 0
-
-## Configuration options can be imported from files or folders using the %include
-## option with the value being a path. If the path is a file, the options from the
-## file will be parsed as if they were written where the %include option is. If
-## the path is a folder, all files on that folder will be parsed following lexical
-## order. Files starting with a dot are ignored. Files on subfolders are ignored.
-## The %include option can be used recursively.
-#%include /etc/torrc.d/
-#%include /etc/torrc.custom
-
